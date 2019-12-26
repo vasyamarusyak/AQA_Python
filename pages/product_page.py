@@ -19,8 +19,13 @@ class ProductPage(BasePage):
         message = self.browser.find_element(*ProductPageLocators.MESSAGE_ABOUT_ADDING).text
         # Перевіряємо що назва товару присутня в повідомленні про додавання товару.
         # Це можна було б ще зробити задопомогою split() і порівняння строк.
-        assert product_name in message, "No product name in the message"
+        assert product_name in message, \
+               "No product name in the message"  #Перевіряємо що строка product_name є в строці message 
+        #assert product_name == message, \
+        #     f"The alert contains wrong product name: {message} - {product_name}" # Перевіряємо що строка product_name
+                                                                                  # дорівнює строці message
 
+        
     def should_be_message_basket_total(self):
         # Спочатку перевіряємо що елементи присутні на сторінці
         assert self.is_element_present(*ProductPageLocators.MESSAGE_BASKET_TOTAL), (
