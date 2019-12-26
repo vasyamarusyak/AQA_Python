@@ -22,9 +22,9 @@ class BasePage():
             return False
         return True
 
-    #This code is for task in 4_3_2 quiz
+    #This code is for quiz
     def solve_quiz_and_get_code(self):
-        WebDriverWait(self.browser, 3).until(EC.alert_is_present())
+        #WebDriverWait(self.browser, 3).until(EC.alert_is_present())
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
         answer = str(math.log(abs((12 * math.sin(float(x))))))
@@ -32,7 +32,7 @@ class BasePage():
         alert.send_keys(answer)
         alert.accept()
         try:
-            WebDriverWait(self.browser, 3).until(EC.alert_is_present())
+           # WebDriverWait(self.browser, 3).until(EC.alert_is_present())
             alert = self.browser.switch_to.alert
             alert_text = alert.text
             print(f"Your code: {alert_text}")
