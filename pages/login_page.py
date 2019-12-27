@@ -8,7 +8,7 @@ class LoginPage(BasePage):
         self.should_be_register_form()
 
     def should_be_login_url(self):
-        assert "/login/" in self.browser.current_url, "MAY BE NOT 'LOGIN' PAGE" #Перевіряємо подстрока "login" есть в текущем url браузера.
+        assert "/login/" in self.browser.current_url, "MAY BE NOT 'LOGIN' PAGE" #Перевіряємо чи подстрока "login" є в поточному url браузера.
 
     def should_be_login_form(self):
         assert self.is_element_present(*LoginPageLocators.L_FORM), "LOGIN FORM NOT FOUND"
