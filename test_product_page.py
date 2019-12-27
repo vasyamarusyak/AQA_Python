@@ -1,6 +1,7 @@
 from .pages.main_page import MainPage
 from .pages.login_page import LoginPage
 from .pages.product_page import ProductPage
+from .pages.basket_page import BasketPage
 import time
 import pytest# для того щоб xfail тест працював.
 
@@ -32,7 +33,7 @@ def test_guest_can_add_product_to_basket(browser, link):
 
 link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/"
 
-#@pytest.mark.skip
+@pytest.mark.skip
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page = ProductPage(browser, link)
     page.open()                                #Відкриваємо сторінку товару
@@ -40,20 +41,21 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     #time.sleep(1)
     page.should_not_be_success_message()       #Перевіряємо що немає повідомлення про успіх задопомогою is_not_element_present
 
-#@pytest.mark.skip
+@pytest.mark.skip
 def test_guest_cant_see_success_message(browser):
     page = ProductPage(browser, link)
     page.open()                                
     page.should_not_be_success_message()       #Перевіряємо що немає повідомлення про успіх задопомогою is_not_element_present
 
-#@pytest.mark.skip
+@pytest.mark.skip
 def test_message_disappeared_after_adding_product_to_basket(browser):
     page = ProductPage(browser, link)
     page.open()                                
     page.test_guest_can_add_product_to_basket()#Додаємо товар у корзину 
     time.sleep(1)
     page.should_not_be_success_message_after_adding_product_to_basket()#Перевіряємо що немає повідомлення про успіх задопомогою is_disappeared
-
+    
+@pytest.mark.skip
 def test_guest_should_see_login_link_on_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)# надаємо доступ до методів із product_page класу ProductPage
@@ -62,7 +64,8 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.should_be_login_link()#оскільки ProductPage є наслідником BasePage, тоиу ми можемо
                                # використати цей метод.
     time.sleep(2)
-
+    
+@pytest.mark.skip
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
@@ -74,6 +77,34 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     login_page.should_be_login_page()#оскільки LoginPage є наслідником BasePage, тому ми можемо
                                      # використати метод should_be_login_page() із BasePage.
 
+
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/"
+    page = BasketPage(browser, link)
+    page.open()                                           
+    page.test_guest_can_go_to_basket()                     
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.should_not_be_any_products_in_busket()     
+    print("Method should_not_be_any_products_in_busket --- finished")
+    basket_page.should_be_empty_basket_page_with_text()  
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = BasketPage(browser, link)
+    page.open()                                              
+    page.test_guest_can_go_to_basket()                     #Переходимо у корзину по кнопці із шапки сайту 
+    basket_page = BasketPage(browser, browser.current_url) #Переключаємось на basket_page і маємо 
+                                                           #доступ до методів із класу BasketPage
+    basket_page.should_not_be_any_products_in_busket()     #Очікуємо що у корзині немає ніяких товарів
+    print("Method should_not_be_any_products_in_busket --- finished")
+    basket_page.should_be_empty_basket_page_with_text()    #Очікуємо що є текст про те що корзина пуста
+
 #pytest  -v -s --tb=line test_product_page.py
+
+
+
+
+
+                                     
 
 
