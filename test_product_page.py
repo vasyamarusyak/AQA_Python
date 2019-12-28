@@ -77,17 +77,6 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     login_page.should_be_login_page()#оскільки LoginPage є наслідником BasePage, тому ми можемо
                                      # використати метод should_be_login_page() із BasePage.
 
-
-def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/en-gb/"
-    page = BasketPage(browser, link)
-    page.open()                                           
-    page.test_guest_can_go_to_basket()                     
-    basket_page = BasketPage(browser, browser.current_url)
-    basket_page.should_not_be_any_products_in_busket()     
-    print("Method should_not_be_any_products_in_busket --- finished")
-    basket_page.should_be_empty_basket_page_with_text()  
-
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = BasketPage(browser, link)
