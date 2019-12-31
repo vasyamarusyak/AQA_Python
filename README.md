@@ -13,5 +13,6 @@ E   ImportError: attempted relative import with no known parent package
 
 please delete dots "." before imports pages. Make imports like this
 from pages.main_page import MainPage
+
 3.  If you have any other promblems please look at requirements.txt and set all of the packages with command
    pip install -r requirements.txt
