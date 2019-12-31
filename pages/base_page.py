@@ -41,9 +41,6 @@ class BasePage():
         except NoAlertPresentException:
             print("No second alert presented")
 
-#Коли ми пишемо у методі змінні how, what у цьому файлі - то це значить що таким чином ми просто
-#об*являємо що в методі будуть такі змінні. А от у файлі product_page ми вже викликаємо цей метод
-#і вносимо свої конкретні змінні.
             
 #Цей метод перевіряє що елемент не з*являється на сторінці протягом заданого часу
     def is_not_element_present(self, how, what, timeout=4):
@@ -55,13 +52,11 @@ class BasePage():
     
     
 
-#Коли ми хочемо перевірити, що якийсь елемент щзникає, тоді варто використовувати явне очікування
-#разом із функцією until_not, в залежності від того, який результат ми очікуємо.
 
 #Метод is_disappeared: буде чекати до тих пір поки елемент не зникне.
     def is_disappeared(self, how, what, timeout=4):
         try:
-            #Озаначає що чекаємо 4 сек і перевіряємо через 1 сек чи не з*явився елемент
+            #Озаначає що чекаємо 4 сек і перевіряємо через 1 сек чи не зникелемент
             WebDriverWait(self.browser, timeout, 1, TimeoutException).\
                 until_not(EC.presence_of_element_located((how, what)))
         except TimeoutException:

@@ -1,7 +1,7 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-
+#функція для вибору мови
 def pytest_addoption(parser):
     parser.addoption('--browser_name',\
                      action='store',\
