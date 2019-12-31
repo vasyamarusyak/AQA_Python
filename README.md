@@ -93,4 +93,6 @@ Task 4_3_13
   8. Запускаємо тести test_user_cant_see_success_message, test_user_can_add_product_to_basket. Перевіряємо що вони 
      проходять успішно.
 
+Task 4_3_14
+Причесали код. Додали мітки для оцінки одногрупників.
    
