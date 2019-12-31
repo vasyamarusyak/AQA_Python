@@ -7,12 +7,13 @@ import math
 import time
 from .locators import BasePageLocators
 
-class BasePage():    
+
+class BasePage():
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
         self.browser.implicitly_wait(timeout)
-        
+
     def open(self):
         self.browser.get(self.url)
 
@@ -23,9 +24,9 @@ class BasePage():
             return False
         return True
 
-    #This code is for quiz
+    # This code is for quiz
     def solve_quiz_and_get_code(self):
-        #WebDriverWait(self.browser, 3).until(EC.alert_is_present())
+        # WebDriverWait(self.browser, 3).until(EC.alert_is_present())
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
         answer = str(math.log(abs((12 * math.sin(float(x))))))
@@ -33,7 +34,7 @@ class BasePage():
         alert.send_keys(answer)
         alert.accept()
         try:
-           # WebDriverWait(self.browser, 3).until(EC.alert_is_present())
+            # WebDriverWait(self.browser, 3).until(EC.alert_is_present())
             alert = self.browser.switch_to.alert
             alert_text = alert.text
             print(f"Your code: {alert_text}")
@@ -41,23 +42,19 @@ class BasePage():
         except NoAlertPresentException:
             print("No second alert presented")
 
-            
-#Цей метод перевіряє що елемент не з*являється на сторінці протягом заданого часу
+    # Цей метод перевіряє що елемент не з*являється на сторінці протягом заданого часу
     def is_not_element_present(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return True
         return False
-    
-    
 
-
-#Метод is_disappeared: буде чекати до тих пір поки елемент не зникне.
+    # Метод is_disappeared: буде чекати до тих пір поки елемент не зникне.
     def is_disappeared(self, how, what, timeout=4):
         try:
-            #Озаначає що чекаємо 4 сек і перевіряємо через 1 сек чи не зникелемент
-            WebDriverWait(self.browser, timeout, 1, TimeoutException).\
+            # Озаначає що чекаємо 4 сек і перевіряємо через 1 сек чи не зникелемент
+            WebDriverWait(self.browser, timeout, 1, TimeoutException). \
                 until_not(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return False
@@ -68,8 +65,8 @@ class BasePage():
         link.click()
 
     def should_be_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK),\
-               "Login link is not presented"
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), \
+            "Login link is not presented"
 
     def test_guest_can_go_to_basket(self):
         link = self.browser.find_element(*BasePageLocators.GO_TO_BASKET)

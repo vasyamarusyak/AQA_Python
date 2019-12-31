@@ -2,6 +2,7 @@ from .base_page import BasePage
 from .locators import LoginPageLocators
 import time
 
+
 class LoginPage(BasePage):
     def should_be_login_page(self):
         self.should_be_login_url()
@@ -9,7 +10,7 @@ class LoginPage(BasePage):
         self.should_be_register_form()
 
     def should_be_login_url(self):
-        assert "/login/" in self.browser.current_url, "MAY BE NOT 'LOGIN' PAGE" #Перевіряємо чи подстрока "login" є в поточному url браузера.
+        assert "/login/" in self.browser.current_url, "MAY BE NOT 'LOGIN' PAGE"  # Перевіряємо чи подстрока "login" є в поточному url браузера.
 
     def should_be_login_form(self):
         assert self.is_element_present(*LoginPageLocators.L_FORM), "LOGIN FORM NOT FOUND"
@@ -22,4 +23,3 @@ class LoginPage(BasePage):
         self.browser.find_element(*LoginPageLocators.PASSWORD1).send_keys(password)
         self.browser.find_element(*LoginPageLocators.PASSWORD2).send_keys(password)
         self.browser.find_element(*LoginPageLocators.REGISTER_BUTTON).click()
-
